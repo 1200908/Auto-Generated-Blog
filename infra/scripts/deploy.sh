@@ -44,13 +44,13 @@ COMMAND_ID=$(aws ssm send-command \
     "export AWS_REGION='"$AWS_REGION"'",
     "sudo docker-compose pull",
     "echo \"🔄 Reiniciando containers...\"",
-    "docker-compose up -d --remove-orphans",
+    "sudo docker-compose up -d --remove-orphans",
     "echo \"🧹 Limpando imagens antigas...\"",
-    "docker image prune -f",
+    "sudo docker image prune -f",
     "echo \"========================================\"",
     "echo \"✅ Deploy concluído com sucesso!\"",
     "echo \"========================================\"",
-    "docker ps"
+    "sudo docker ps"
   ]' \
   --comment "Deploy automático via CodeBuild" \
   --region "$AWS_REGION" \

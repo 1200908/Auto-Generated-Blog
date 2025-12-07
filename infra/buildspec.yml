@@ -10,11 +10,11 @@ phases:
   build:
     commands:
       - echo "Buildando backend"
-      - docker build -t my-backend ../backend
+      - docker build -t my-backend backend
       - docker tag my-backend:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend:latest
 
       - echo "Buildando frontend"
-      - docker build -t my-frontend ../frontend
+      - docker build -t my-frontend frontend
       - docker tag my-frontend:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-frontend:latest
 
   post_build:

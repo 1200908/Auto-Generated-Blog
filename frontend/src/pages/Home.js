@@ -104,7 +104,7 @@ export default function Home() {
                     maxWidth: '600px',
                     margin: '0 auto'
                 }}>
-                    Create amazing articles with the power of AI
+                    Create amazing articles with the power of AIssss
                 </p>
             </div>
 

@@ -20,7 +20,7 @@ export default function ArticleList({ articles, onSelect, onRefresh }) {
                     cursor: 'pointer'
                 }}
                     onClick={onRefresh}
-                    title="Click to refreshsss"
+                    title="Click to refresh"
                 >
                     Recent Articless
                 </h2>

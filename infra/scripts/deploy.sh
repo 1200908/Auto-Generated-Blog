@@ -121,3 +121,4 @@ else
     echo "$ERROR"
   fi
   exit 1
+fi

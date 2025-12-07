@@ -43,8 +43,8 @@ COMMAND_ID=$(aws ssm send-command \
     "export AWS_ACCOUNT_ID='"$AWS_ACCOUNT_ID"'",
     "export AWS_REGION='"$AWS_REGION"'",
     "sudo docker-compose pull --ignore-pull-failures",
-    "echo "🗑️  Parando e removendo containers antigos..."
-    "docker-compose down --remove-orphans"
+    "echo "🗑️  Parando e removendo containers antigos..."",
+    "docker-compose down --remove-orphans",
     "echo \"🔄 Reiniciando containers...\"",
     "sudo docker-compose up -d --force-recreate",
     "echo \"🧹 Limpando imagens antigas...\"",

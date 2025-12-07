@@ -1,0 +1,123 @@
+#!/bin/bash
+set -e
+
+echo "=========================================="
+echo "🚀 Iniciando deploy via SSM"
+echo "=========================================="
+
+# Validar variáveis necessárias
+if [ -z "$EC2_INSTANCE_ID" ]; then
+  echo "❌ Erro: EC2_INSTANCE_ID não está definida"
+  exit 1
+fi
+
+if [ -z "$AWS_REGION" ]; then
+  echo "❌ Erro: AWS_REGION não está definida"
+  exit 1
+fi
+
+if [ -z "$AWS_ACCOUNT_ID" ]; then
+  echo "❌ Erro: AWS_ACCOUNT_ID não está definida"
+  exit 1
+fi
+
+echo "📍 Instance ID: $EC2_INSTANCE_ID"
+echo "🌎 Região: $AWS_REGION"
+echo "📦 Account ID: $AWS_ACCOUNT_ID"
+echo ""
+
+# Enviar comando via SSM
+echo "📡 Enviando comando de deploy..."
+
+COMMAND_ID=$(aws ssm send-command \
+  --instance-ids "$EC2_INSTANCE_ID" \
+  --document-name "AWS-RunShellScript" \
+  --parameters 'commands=[
+    "echo \"========================================\"",
+    "echo \"📦 Atualizando aplicação...\"",
+    "echo \"========================================\"",
+    "cd /home/ec2-user/app || exit 1",
+    "echo \"🔐 Login no ECR...\"",
+    "aws ecr get-login-password --region '"$AWS_REGION"' | docker login --username AWS --password-stdin '"$AWS_ACCOUNT_ID"'.dkr.ecr.'"$AWS_REGION"'.amazonaws.com",
+    "echo \"⬇️  Baixando novas imagens...\"",
+    "export AWS_ACCOUNT_ID='"$AWS_ACCOUNT_ID"'",
+    "export AWS_REGION='"$AWS_REGION"'",
+    "docker-compose pull",
+    "echo \"🔄 Reiniciando containers...\"",
+    "docker-compose up -d --remove-orphans",
+    "echo \"🧹 Limpando imagens antigas...\"",
+    "docker image prune -f",
+    "echo \"========================================\"",
+    "echo \"✅ Deploy concluído com sucesso!\"",
+    "echo \"========================================\"",
+    "docker ps"
+  ]' \
+  --comment "Deploy automático via CodeBuild" \
+  --region "$AWS_REGION" \
+  --output text \
+  --query "Command.CommandId")
+
+if [ -z "$COMMAND_ID" ]; then
+  echo "❌ Erro ao enviar comando SSM"
+  exit 1
+fi
+
+echo "✅ Comando SSM enviado: $COMMAND_ID"
+echo ""
+
+# Aguardar execução
+echo "⏳ Aguardando execução na EC2..."
+aws ssm wait command-executed \
+  --command-id "$COMMAND_ID" \
+  --instance-id "$EC2_INSTANCE_ID" \
+  --region "$AWS_REGION" \
+  2>/dev/null || true
+
+# Dar um tempo extra para garantir
+sleep 5
+
+# Buscar resultado
+echo ""
+echo "=========================================="
+echo "📋 Resultado da execução:"
+echo "=========================================="
+
+STATUS=$(aws ssm get-command-invocation \
+  --command-id "$COMMAND_ID" \
+  --instance-id "$EC2_INSTANCE_ID" \
+  --region "$AWS_REGION" \
+  --query "Status" \
+  --output text)
+
+OUTPUT=$(aws ssm get-command-invocation \
+  --command-id "$COMMAND_ID" \
+  --instance-id "$EC2_INSTANCE_ID" \
+  --region "$AWS_REGION" \
+  --query "StandardOutputContent" \
+  --output text)
+
+ERROR=$(aws ssm get-command-invocation \
+  --command-id "$COMMAND_ID" \
+  --instance-id "$EC2_INSTANCE_ID" \
+  --region "$AWS_REGION" \
+  --query "StandardErrorContent" \
+  --output text)
+
+echo "$OUTPUT"
+
+if [ "$STATUS" == "Success" ]; then
+  echo ""
+  echo "=========================================="
+  echo "✅ Deploy executado com sucesso!"
+  echo "=========================================="
+  exit 0
+else
+  echo ""
+  echo "=========================================="
+  echo "❌ Deploy falhou com status: $STATUS"
+  echo "=========================================="
+  if [ ! -z "$ERROR" ]; then
+    echo "Erros:"
+    echo "$ERROR"
+  fi
+  exit 1

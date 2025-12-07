@@ -1,0 +1,16 @@
+@startuml
+
+title Use Case Diagram - Auto-Generated Blog
+
+left to right direction
+
+
+
+
+Anonymous --> (View ALL Articles)
+Anonymous --> (View an Article Details)
+Anonymous --> (Generate a New Article)
+System -->  (Generate a New Article by AI)
+
+
+@enduml

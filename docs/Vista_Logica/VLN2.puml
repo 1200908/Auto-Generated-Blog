@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+title "Logic View Level 2 - Auto-Generated Blog"
+
+component {
+
+    component "Frontend React" <<Container>> {
+        portout "UI Port" as innerportoutFE
+    }
+
+    component "Backend Node.js" <<Container>> {
+        portout "API Port" as innerportoutBE
+    }
+
+    component "Postgres DB" <<Container>> {
+        portout "DB Port" as innerportoutDB
+    }
+
+
+
+    portout frontend as innerportoutSystemFE
+    portout backend as innerportoutSystemBE
+    portout db as innerportoutSystemDB
+
+
+}
+
+innerportoutFE --- innerportoutSystemFE
+innerportoutBE --- innerportoutSystemBE
+innerportoutDB --- innerportoutSystemDB
+
+
+innerportoutSystemFE --- FRONTEND_UI
+innerportoutSystemBE --- BACKEND_API
+innerportoutSystemDB --- POSTGRES_DB
+
+
+' Comunicação HTTP
+FRONTEND_UI --( BACKEND_API : HTTP
+BACKEND_API --( POSTGRES_DB : SQL
+BACKEND_API --( AI_SERVICE : HTTP/REST
+
+
+@enduml

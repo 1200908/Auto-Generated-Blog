@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+title "Logic View Level 1"
+
+title "Logic View Level 1 - Auto-Generated Blog"
+
+component "Auto-Generated Blog" <<System>> {
+      portout frontend as innerportoutFE
+      portout backend as innerportoutBE
+      portout db as innerportoutDB
+
+}
+
+innerportoutFE --- FRONTEND_UI
+innerportoutBE --- BACKEND_API
+innerportoutDB --- POSTGRES_DB
+
+BACKEND_API --( AI_SERVICE : HTTP
+
+@enduml

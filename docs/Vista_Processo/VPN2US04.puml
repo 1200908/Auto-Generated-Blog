@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autoactivate on
+autonumber
+
+title I want to update an author’s data
+
+participant "a1:Author" as Userl1
+participant "a2:Author" as Userl2
+
+
+
+ -> Userl1 : Htpp Patch(/api/author)
+
+
+Userl1 -> Userl1 : save Authorl1
+Userl1 --> Userl1 : saved Authorl1
+
+Userl1 -> Userl2: Htpp Post (/internal/author)
+Userl2 --> Userl1: 200 OK
+
+ <-- Userl1 : 200
+
+
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autoactivate on
+autonumber
+
+
+
+participant "l1:Lendings" as Lendingsl1
+participant "u1:User" as User
+participant "b1:Book" as Book
+participant "l2:Lendings" as Lendingsl2
+
+
+
+ -> Lendingsl1 : Htpp Post(/api/lendigs)
+Lendingsl1 -> User: GET /users/{userId} (Verify user existence)
+User --> Lendingsl1: 200 OK (User details)
+Lendingsl1 -> Book: GET /books/{bookId} (Verify book existence)
+Book --> Lendingsl1: 200 OK (Book details)
+
+Lendingsl1 -> Lendingsl1 : save Lendingsl1
+Lendingsl1 --> Lendingsl1 : saved Lendingsl1
+
+Lendingsl1 -> Lendingsl2: Htpp Post (/internal/lendigs)
+Lendingsl2 --> Lendingsl1: 200 OK
+
+ <-- Lendingsl1 : 201
+
+
+
+@enduml

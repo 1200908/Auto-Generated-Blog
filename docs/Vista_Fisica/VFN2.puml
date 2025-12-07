@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+
+title "Auto-Generated Blog - Physical View (AWS EC2)"
+
+node "EC2 Instance" {
+
+    [Frontend React]
+    [Backend Node.js]
+    [Postgres DB]
+
+}
+
+[Frontend React] --> [Backend Node.js] : REST API
+[Backend Node.js] --> [Postgres DB] : SQL Queries
+[Backend Node.js] --> [AI Service] : API Calls (HuggingFace)
+
+
+
+@enduml

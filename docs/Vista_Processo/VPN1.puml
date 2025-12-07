@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant "l1:LMS" as LMS
+
+
+ -> LMS : Htpp Post(/api/lendigs)
+  <-- LMS : 201
+
+@enduml

@@ -192,7 +192,7 @@ export default function ArticleDetail({ article, onBack }) {
                              onClick={onBack}
                         >
                             <Sparkles size={15} color="#FFFFFF" />
-                            End of Articles
+                            End of Article
                         </div>
                     </div>
                 </div>

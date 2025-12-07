@@ -22,7 +22,7 @@ export default function ArticleList({ articles, onSelect, onRefresh }) {
                     onClick={onRefresh}
                     title="Click to refresh"
                 >
-                    Recent Articless
+                    Recent Articles
                 </h2>
 
                 <div style={{

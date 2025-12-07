@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "🚀 Iniciando deploy via SSM"
+echo "🚀 deploy via SSM"
 echo "=========================================="
 
 # Validar variáveis necessárias
@@ -27,27 +27,27 @@ echo "📦 Account ID: $AWS_ACCOUNT_ID"
 echo ""
 
 # Enviar comando via SSM
-echo "📡 Enviando comando de deploy..."
+echo "📡 Envio de comando de deploy..."
 
 COMMAND_ID=$(aws ssm send-command \
   --instance-ids "$EC2_INSTANCE_ID" \
   --document-name "AWS-RunShellScript" \
   --parameters 'commands=[
     "echo \"========================================\"",
-    "echo \"📦 Atualizando aplicação...\"",
+    "echo \"📦 Atualizaçao da aplicação...\"",
     "echo \"========================================\"",
     "cd /home/ec2-user/app || exit 1",
     "echo \"🔐 Login no ECR...\"",
     "aws ecr get-login-password --region '"$AWS_REGION"' | docker login --username AWS --password-stdin '"$AWS_ACCOUNT_ID"'.dkr.ecr.'"$AWS_REGION"'.amazonaws.com",
-    "echo \"⬇️  Baixando novas imagens...\"",
+    "echo \"⬇️ Novas imagens...\"",
     "export AWS_ACCOUNT_ID='"$AWS_ACCOUNT_ID"'",
     "export AWS_REGION='"$AWS_REGION"'",
     "sudo docker-compose pull --ignore-pull-failures",
     "echo \" Parando e removendo containers antigos...\"",
     "sudo docker-compose down --remove-orphans",
-    "echo \"🔄 Reiniciando containers...\"",
+    "echo \"🔄 Reinicio de containers...\"",
     "sudo docker-compose up -d --force-recreate",
-    "echo \"🧹 Limpando imagens antigas...\"",
+    "echo \"🧹 Limpeza de imagens antigas...\"",
     "sudo docker image prune -f",
     "echo \"========================================\"",
     "echo \"✅ Deploy concluído com sucesso!\"",
@@ -67,7 +67,7 @@ fi
 echo "✅ Comando SSM enviado: $COMMAND_ID"
 echo ""
 
-# Aguardar execução
+
 echo "⏳ Aguardando execução na EC2..."
 aws ssm wait command-executed \
   --command-id "$COMMAND_ID" \
@@ -75,10 +75,10 @@ aws ssm wait command-executed \
   --region "$AWS_REGION" \
   2>/dev/null || true
 
-# Dar um tempo extra para garantir
+
 sleep 5
 
-# Buscar resultado
+
 echo ""
 echo "=========================================="
 echo "📋 Resultado da execução:"

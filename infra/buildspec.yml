@@ -4,25 +4,25 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo "Logando no ECR"
+      - echo "Login no ECR"
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
   build:
     commands:
-      - echo "Buildando backend"
+      - echo "Construçao do backend"
       - docker build -t my-backend backend
       - docker tag my-backend:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend:latest
 
-      - echo "Buildando frontend"
+      - echo "Construçao do frontend"
       - docker build -t my-frontend frontend
       - docker tag my-frontend:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-frontend:latest
 
   post_build:
     commands:
-      - echo "Enviando imagens para o ECR"
+      - echo "Envio de imagens para o ECR"
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-backend:latest
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/my-frontend:latest
 
-      - echo "Rodando deploy na EC2"
+      - echo "Deploy na EC2"
       - chmod +x infra/scripts/deploy.sh
       - ./infra/scripts/deploy.sh

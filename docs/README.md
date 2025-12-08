@@ -19,15 +19,15 @@
 >>- System (automated): generate 1 new article per day via AI
 
 
-## Vista Lógica
+## Logical View
 
-#### Vista Lógica N1
+#### Logical View N1
 
 ![VLN1](architecture/Vista_Logica/VLN1-Logic_View_Level_1.png)
 
 >High-level layered architecture of the Auto-Generated Blog solution.
 
-#### Vista Lógica N2
+#### Logical View N2
 
 ![VLN2](architecture/Vista_Logica/VLN2-Logic_View_Level_2.png)
 
@@ -36,9 +36,9 @@
 >>- Backend: Node.js
 >>- Persistence: PostgreSQL
 >>- External Service: HuggingFace Inference API
-## Vista Fisica
+## Physical View
 
-#### Vista Fisica N2
+#### Physical View Level 2
  
 ![VFN2](architecture/Vista_Fisica/VFN2-Auto_Generated_Blog.png)
 
@@ -47,41 +47,23 @@
 >>   - `backend` → Node.js + PostgreSQL client
 >>   - `db` → Postgres 15
 
-# Vista de Processo
-### Vista de Processo de Nivel 1
+# Process View
 
->Sendo que todas as Vista  de processo serao semelhantes a esta so a representamos uma vez 
+>The Process Views present the dynamic behavior of the Auto-Generated Blog solution, showing how system components interact during the execution of each use case.
+
+### Process View – Level 1 (VPN1)
+
 
 ![VPN1](architecture/Vista_Processo/VPN1.svg)
 
-### Vista de Processo de Nivel 2
-##### Vista de Processo de Nivel 2 US15
+### Process View – Level 2 (VPN2)
 
->Vista de Processo de nivel 2 da User Story 015 "As a Librarian i want to lend a book to a reader."
+>This level provides a high-level representation of how any interaction flows through the system.
+It abstracts away internal details and focuses on the generic request/response cycle:
+>>A client (browser or automated scheduler) sends a request to the Backend.
+>>The Backend processes the request, performs business logic, and accesses the Database if needed.
+>>A response is sent back to the client.
 
-![VPN2](architecture/Vista_Processo/VPN2US15.svg)
-######  Vistas de Processo NV3 da US15
+![VPN2](architecture/Vista_Processo/VPN2.svg)
 
->Vista de Processo de nivel 3 da User Story 015 "As a Librarian i want to lend a book to a reader."
-
-![VPN3](architecture/Vista_Processo/VPN3US15.svg)
-##### Vista de Processo de Nivel 2 US011
-
->Vista de Processo de nivel 2 da User Story 011 "As a Anonymous i want to register as a reader."
-
-![VPN2](architecture/Vista_Processo/VPN2US11.svg)
-
-##### Vistas de Processo US04
-
->User Story 04 "As a Librarian I want to update an author’s data."
-
-######  Vistas de Processo NV2 da US04
-
-![VPN2](architecture/Vista_Processo/VPN2US04.svg)
-
-######  Vistas de Processo NV3 da US04
-
-
-
-![VPN3US04](architecture/Vista_Processo/VPN3US04.svg)
 

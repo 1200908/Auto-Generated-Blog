@@ -3,10 +3,12 @@
 
 autonumber
 
-participant "l1:LMS" as LMS
+title " Auto-Generated Blog"
+
+participant "A1:AGB" as AGB
 
 
- -> LMS : Htpp Post(/api/lendigs)
-  <-- LMS : 201
+ -> AGB : Htpp Post(/api/articles)
+  <-- AGB : 201
 
 @enduml

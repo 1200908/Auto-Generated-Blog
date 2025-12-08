@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autoactivate on
+autonumber
+
+title " Auto-Generated Blog"
+
+
+participant "Browser / Client FE" as FE
+participant "Backend API" as BE
+participant "Database" as DB
+
+
+
+
+ -> FE : Htpp Post(/api/articles)
+
+
+FE -> BE : Create an Article
+BE -> DB : Create an Article
+DB -> DB : save Usersu1
+DB --> DB : Create an Article
+
+DB --> BE:  saved Usersu1
+BE --> FE: 201 OK
+
+
+ <-- FE : 201 Created
+
+
+
+@enduml

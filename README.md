@@ -159,15 +159,24 @@ docker compose down -v
 
 ---
 
-## 📝 Technical Decisions
+## 📝 Decisões Técnicas
 
-**Why HuggingFace?** Free tier, good quality models (Llama 3.2)  
-**Why PostgreSQL?** Robust, scalable, free on EC2  
-**Why node-cron?** Simple, reliable, no external dependencies
+**Porquê HuggingFace?**  
+Free tier generoso, modelos de qualidade (Llama 3.2), fácil integração
 
+
+**Porquê node-cron?**  
+Simples, confiável, zero dependências externas, perfeito para tarefas agendadas
+
+**Porquê Docker?**  
+Consistência entre ambientes, fácil deploy, isolamento de serviços
 ## 📌 Notas finais
 
 - O sistema funciona 100% em Docker.
 - A arquitetura é modular e fácil de estender.
 - Suporta futuras integrações com IA.
 - O frontend comunica com o backend pela porta 8080.
+
+- 📄 **Portfolio**: [Jorge Vieira](https://1200908.github.io/portfolio-angular/)
+
+📖 **[Technical Documentation (English)](./docs/Readme.md)**

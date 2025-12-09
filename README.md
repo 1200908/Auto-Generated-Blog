@@ -179,4 +179,4 @@ Consistência entre ambientes, fácil deploy, isolamento de serviços
 
 - 📄 **Portfolio**: [Jorge Vieira](https://1200908.github.io/portfolio-angular/)
 
-📖 **[Technical Documentation (English)](./docs/Readme.md)**
+📖 **[Technical Documentation (English)](./docs/README.md)**

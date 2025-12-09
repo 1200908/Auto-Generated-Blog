@@ -1,17 +1,4 @@
 
-cd infra
-docker compose up -d --build
-docker compose logs backend
-docker compose down -v
-
-
-docker compose ps
-docker exec -it infra-db-1 psql -U postgres -d pg_articles
-\l
-\c 
-\d
-
-
 # 📘 Auto-Generated Blog — README
 
 ## 📝 Descrição do Projeto
@@ -150,25 +137,6 @@ Garante que o PostgreSQL mantém os dados mesmo após:
 ```bash
 docker compose down
 ```
-
----
-
-## 🤖 Fallback da IA 
-
-Se o backend usa IA para gerar textos, é recomendado ter fallback quando:
-
-- A API da IA falha
-- O crédito do provider acaba
-- A resposta vem vazia ou inválida
-
-### Exemplos de fallback úteis:
-
-- Se a IA não gerar título → usar `"Untitled Article"`
-- Se não gerar corpo → usar uma mensagem padrão
-- Se timeout → armazenar artigo como rascunho
-- Se a IA falhar durante update → manter o valor existente
-
-Implementar isto evita quebra total do sistema.
 
 ---
 

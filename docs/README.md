@@ -1,4 +1,4 @@
-# Arquitetura da Solução – Auto-Generated Blog (AWS + Docker)
+# Solution Architecture – Auto-Generated Blog (AWS + Docker)
 
 ## DM
 
